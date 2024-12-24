@@ -1,0 +1,4 @@
+./node_modules
+# Add other directories or files to ignore
+dist/
+.env
