@@ -2,7 +2,7 @@ const PORT = process.env.PORT || 3000;
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const {generativeAi, GoogleGenerativeAI} = require("@google/generative-ai");
+const { GoogleGenerativeAI} = require("@google/generative-ai");
 app.use(cors());
 app.use(express.json());
 const fs = require("fs");
@@ -30,8 +30,28 @@ app.post("/upload",  (req, res) => {
         }
         filePath = req.file.path;
     }
-    )
+)
 }
+)
+app.post("/gemini", async (req, res) => {
+    console.log(req.body);
+  function pathToGenerativeImage (path,mimeType) {
+    const buffer = fs.readFileSync(path);  
+    const base64 = buffer.toString("base64");
+return {
+    inlineData: {
+        mimeType: mimeType,
+        data: base64
+    }
+}
+  }
+    const model = genAI.getGenerativeModel({model : "gemini-1.5-flash-latest"});
+    const prompt = req.body.prompt;
+    const result = await model.generateContent([prompt,pathToGenerativeImage(filePath,"image/jpeg")]);
+    const response = result.response
+    const text = response.text()
+    console.log(text)
+    res.send(text);}
 ) 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

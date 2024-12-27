@@ -41,9 +41,13 @@ function App() {
     try {
       const options = {
         method: "POST",
-        body: supriseVal,
+        body: JSON.stringify({ prompt: supriseVal }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       };
-      const Response = await fetch("http://localhost:3000/upload", options);
+      console.log(supriseVal, "surpriseVal");
+      const Response = await fetch("http://localhost:3000/gemini", options);
       const data = await Response.json();
       setResponse(data);
     } catch (error) {
@@ -101,6 +105,7 @@ function App() {
           placeholder="What do you want to know about the image ..."
         />
         <button onClick={surprise}>Surprise</button>
+        <button onClick={analyzeImage}>Generate</button>
       </div>
     </>
   );
