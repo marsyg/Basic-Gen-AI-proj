@@ -96,15 +96,16 @@ function App() {
             type="file"
           />
           {selectedFile && <img src={preview} alt="preview" />}
-        </div>
-
-        <div className="flex flex-col w-3/5 h-28 px-1 border-spacing-1 border-slate-200 items-center rounded-3xl fixed bottom-7    bg-slate-700 justify-center">
+        </div> 
+         <div className="flex flex-col w-3/5 h-auto p-1 border-spacing-1 border-slate-200 items-start rounded-3xl fixed bottom-7   bg-slate-700">
+         <div className="w-40 mx-4 h-auto overflow-hidden">{selectedFile && <img className="w-full h-auto object-cover" src={preview} alt="preview" />}</div>
+         <div className="flex flex-col w-full h-28 px-1 border-spacing-1 border-slate-200 items-center rounded-3xl     bg-slate-700 justify-center">
           <div className="w-full ">
             <input
               onChange={(e) => {
                 setSupriseVal(e.target.value);
               }}
-              className="border-2 w-full h-14 my-1 rounded-2xl py-1  bg-slate-300 border-stone-500"
+              className="border-2 w-full h-14 my-1 rounded-2xl py-1 placeholder:text-slate-500 bg-slate-300 border-stone-500"
               type="text"
               value={supriseVal}
               placeholder="What do you want to know about the image ..."
@@ -156,6 +157,8 @@ function App() {
             </div>
           </div>
         </div>
+         </div>
+       
       </div>
     </>
   );
